@@ -24,3 +24,4 @@ library
                      , AC-Vector >= 2.2.0
                      , unordered-containers >= 0.2.1.0
                      , hashable >= 1.0.1.1
+                     , HUnit >= 1.2.0.0

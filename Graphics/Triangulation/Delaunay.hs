@@ -15,6 +15,7 @@ import Data.Maybe(fromJust)
 
 import Data.List
 
+import Test.HUnit(Counts(..),Test(..),runTestTT,(~?=),(~:))
 
 
 
@@ -237,3 +238,12 @@ flipEdge :: Triangulation -> (Pt,Pt) -> Pt -> Pt -> (Triangulation,[Triangle],[T
 flipEdge trig (a,b) c c' = (foldl' insertTriangle (foldl' deleteTriangle trig delTr) insTr, insTr, delTr)
   where insTr = [mkTri c a c',mkTri c b c']
         delTr = [mkTri a b c, mkTri a b c']
+
+_runAllTests ::  IO Counts
+_runAllTests = runTestTT $ TestList 
+  [ "triangulate no points"   ~:   triangulate []                       ~?= []
+  , "triangulate one point"   ~:   triangulate [v2 1 1]                 ~?= []
+  , "triangulate two points"  ~:   triangulate [v2 1 1, v2 2 2]         ~?= []
+  , "triangulate many dups"   ~:   triangulate (replicate 5 (v2 1 1))   ~?= []
+  ]
+  where v2 = Vector2
