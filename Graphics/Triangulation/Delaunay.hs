@@ -15,6 +15,7 @@ import Data.Maybe(fromJust)
 
 import Data.List
 
+import Test.HUnit(Counts(..),Test(..),runTestTT,(~?=),(~:))
 
 
 
@@ -240,3 +241,15 @@ flipEdge :: Triangulation -> (Pt,Pt) -> Pt -> Pt -> (Triangulation,[Triangle],[T
 flipEdge trig (a,b) c c' = (foldl' insertTriangle (foldl' deleteTriangle trig delTr) insTr, insTr, delTr)
   where insTr = [mkTri c a c',mkTri c b c']
         delTr = [mkTri a b c, mkTri a b c']
+
+_runAllTests ::  IO Counts
+_runAllTests = runTestTT $ TestList 
+  [ "each tri has distinct pts" ~: filter (not . hasDistinctPoints) (triangulate pts) ~?= []
+  ]
+  where 
+    pts = [v 0 7, v 24 33, v 10 13, v 20 0, v 22 11] where v = Vector2
+
+-- predicates for testing
+hasDistinctPoints :: (Vector2, Vector2, Vector2) -> Bool
+hasDistinctPoints (p1,p2,p3) = p1/=p2 && p1/=p2 && p2/=p3
+
