@@ -21,7 +21,10 @@ import Data.List
 -- | Generate the Delaunay triangulation of a set of points
 triangulate :: [Vector2] -> [(Vector2,Vector2,Vector2)]
 triangulate [] = []
-triangulate pts' = map (\(Pt a,Pt b,Pt c) -> (a,b,c)) $ triangulationToTris $ removeHelperPoints pts trig
+triangulate pts' = 
+  case pts of
+    (_:_:_:_) -> map (\(Pt a,Pt b,Pt c) -> (a,b,c)) $ triangulationToTris $ removeHelperPoints pts trig
+    _tooFew   -> []
   where trig = addPoints (baseTriangulation pts) pts
         pts  = map Pt $ nub pts'
         
