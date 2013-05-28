@@ -108,7 +108,9 @@ baseTriangulation pts = foldl' insertTriangle emptyTriangulation [mkTri p1 p2 p3
         p3 = Pt $ Vector2 xMax yMin
         p4 = Pt $ Vector2 xMax yMax
         -- note: p1 <= p2 <= p3 <= p4.
-        (BBox2 xMin yMin xMax yMax) = bound_points $ map (\(Pt x) -> x) pts
+        (BBox2 xMin' yMin' xMax' yMax') = bound_points $ map (\(Pt x) -> x) pts
+        [xMin,yMin] = map (\x -> x - 1) [xMin',yMin']
+        [xMax,yMax] = map (\x -> x + 1) [xMax',yMax']
         
 
 triangulationToTris :: Triangulation -> [Triangle]
