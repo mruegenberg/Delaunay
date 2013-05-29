@@ -2,9 +2,10 @@
 -- documentation, see http://haskell.org/cabal/users-guide/
 
 name:                delaunay
-version:             0.1.0.1
+version:             0.1.0.2
 synopsis:            Build a Delaunay triangulation of a set of points
-description:         Use '--ghc-options=-fllvm' for improved performance.
+description:         This package provides a single function that builds a Delaunay triangulation of a set of points.
+		     Use '--ghc-options=-fllvm' for improved performance.
 homepage:            http://github.com/mruegenberg/Delaunay
 license:             BSD3
 license-file:        LICENSE
